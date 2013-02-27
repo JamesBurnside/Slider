@@ -11,7 +11,7 @@ public class Slider
 {
 	JFrame frame;
 	JPanel[][] panels;
-	JMenuBar menuBar;
+	Topmenu menuBar;
 	int cols, rows;
 	Image buffer;
 	Graphics2D g2d;
@@ -26,13 +26,17 @@ public class Slider
 	{
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		frame.setSize(900,1000);
+		frame.setSize(1000,1000);
 
 		Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
 		JPanel display_panel =  new JPanel();
-		display_panel.setPreferredSize(new Dimension(900,900));
+		display_panel.setPreferredSize(new Dimension(1000,900));
+		display_panel.setLayout(new BorderLayout());
+
+		Topmenu menuBar = new Topmenu();
+
 		//Have a start screen that asks for difficulty level
 		//or set default
 		cols = rows = 3;
@@ -41,7 +45,8 @@ public class Slider
 
 
 		display_panel = loadImage("blah.jpg", panels);
-		contentPane.add(display_panel, BorderLayout.NORTH);
+		contentPane.add(menuBar, BorderLayout.NORTH);
+		contentPane.add(display_panel, BorderLayout.SOUTH);
 
 		frame.setVisible(true);
 	}
@@ -84,13 +89,9 @@ public class Slider
                 panels[r][c] = new JPanel();
                 panels[r][c].setPreferredSize(new Dimension(chopwidth, chopheight));
                 panels[r][c].add(chopLabel[r][c]);
-                display_panel.add(panels[r][c]);
+                display_panel.add(panels[r][c], BorderLayout.SOUTH);
 			}
-
-
 
 		return display_panel;
 	}
-
-
 }
