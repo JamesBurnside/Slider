@@ -16,6 +16,7 @@ public class Slider
 	Image buffer;
 	Graphics2D g2d;
 	int pictureDimension;
+	String imagePath;
 
 	public static void main(String args[])
 	{
@@ -25,6 +26,7 @@ public class Slider
 
 	public void run()
 	{
+		imagePath = "":
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.setSize(1000,1000);
@@ -36,7 +38,7 @@ public class Slider
 
 		JPanel display_panel =  new JPanel();
 
-		Topmenu menuBar = new Topmenu();
+		Topmenu menuBar = new Topmenu(frame);
 
 		//Have a start screen that asks for difficulty level
 		//or set default

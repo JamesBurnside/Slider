@@ -1,13 +1,21 @@
 import java.awt.*;
+import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.BoxLayout;
 import javax.swing.border.*;
+import javax.swing.JFileChooser.*;
+import javax.swing.filechooser.FileFilter.*;
+import java.io.File;
 
 class Topmenu extends JMenuBar
 {
-	public Topmenu()
+	JFrame bossFrame;
+
+	public Topmenu(JFrame passedFrame)
 	{
+		bossFrame = passedFrame;
+
 		this.setLayout(new FlowLayout());
 
 		JGradientButton btnNew = new JGradientButton("Load New Image");
@@ -16,6 +24,7 @@ class Topmenu extends JMenuBar
 		JGradientButton btnExit = new JGradientButton("Exit");
 
 		btnExit = setBtnExitClick(btnExit);
+		btnNew = setBtnNewClick(btnNew);
 
 		this.add(btnNew);
 		this.add(btnShuffle);
@@ -45,6 +54,31 @@ class Topmenu extends JMenuBar
 
 		return btnExit;
 	}
+
+	JGradientButton setBtnNewClick(JGradientButton btnNew)
+	{
+		btnNew.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				JFileChooser chooser = new JFileChooser();
+
+				JFileFilter filter = new JFileFilter();
+				filter.addType("jpg");
+				filter.addType("JPG");
+				filter.setDescription("JPG Images");
+				chooser.setFileFilter(filter);
+
+				int returnVal = chooser.showOpenDialog(bossFrame);
+				if(returnVal == JFileChooser.APPROVE_OPTION)
+				{
+				    bossFrame.imagePath = chooser.getSelectedFile().getName();
+    			}
+			}
+		});
+
+		return btnNew;
+	}
 }
 
 class JGradientButton extends JButton
@@ -72,14 +106,41 @@ class JGradientButton extends JButton
 
             super.paintComponent(g);
         }
+}
 
-        private void MouseEntered(java.awt.event.MouseEvent evt)
-        {
-      		setBackground(Color.red);
-    	}
+class JFileFilter extends javax.swing.filechooser.FileFilter {
+	protected String description;
+	protected ArrayList exts = new ArrayList();
 
-    /*private void jButton2MouseExited(java.awt.event.MouseEvent evt) {
-       this.jButton2.setBackground(Color.lightGray);
-       this.Button.setForeground(Color.lightGray);
-    }  */
+	public void addType(String s) {
+		exts.add(s);
+	}
+
+	/** Return true if the given file is accepted by this filter. */
+	public boolean accept(File f) {
+		// Little trick: if you don't do this, only directory names
+		// ending in one of the extentions appear in the window.
+		if (f.isDirectory()) {
+			return true;
+
+		} else if (f.isFile()) {
+			Iterator it = exts.iterator();
+			while (it.hasNext()) {
+				if (f.getName().endsWith((String)it.next()))
+					return true;
+			}
+		}
+
+		// A file that didn't match, or a weirdo (e.g. UNIX device file?).
+		return false;
+	}
+
+	/** Set the printable description of this filter. */
+	public void setDescription(String s) {
+		description = s;
+	}
+	/** Return the printable description of this filter. */
+	public String getDescription() {
+		return description;
+	}
 }
