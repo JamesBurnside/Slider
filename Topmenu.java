@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.BoxLayout;
+import javax.swing.border.*;
 
 class Topmenu extends JMenuBar
 {
@@ -9,17 +10,51 @@ class Topmenu extends JMenuBar
 	{
 		this.setLayout(new FlowLayout());
 
-		JMenu optionsMenu = new JMenu("Options");
+		JGradientButton btnNew = new JGradientButton("Load New Image");
+		JGradientButton btnShuffle = new JGradientButton("Re-Shuffle");
+		JGradientButton btnCompleted = new JGradientButton("View Completed");
+		JGradientButton btnExit = new JGradientButton("Exit");
 
-		JMenuItem restartItem = new JMenuItem("Restart");
-		JMenuItem closeItem = new JMenuItem("Close");
-
-		optionsMenu.add(restartItem);
-		optionsMenu.add(closeItem);
-
-		this.setBorder(BorderFactory.createMatteBorder(0,0,0,1,Color.BLACK));
-		this.add(optionsMenu);
-		this.add(restartItem);
-		this.add(closeItem);
+		this.add(btnNew);
+		this.add(btnShuffle);
+		this.add(btnCompleted);
+		this.add(btnExit);
 	}
+}
+
+class JGradientButton extends JButton
+{
+        JGradientButton(String name)
+        {
+            super(name);
+            setContentAreaFilled(false);
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            setFocusPainted(false);
+            //setBorderPainted(false);
+            setForeground(Color.WHITE);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g){
+            Graphics2D g2 = (Graphics2D)g.create();
+            g2.setPaint(new GradientPaint(
+                    new Point(0, 0),
+                    new Color(0x0044cc),
+                    new Point(0, getHeight()),
+                    new Color(0x0088cc)));
+            g2.fillRect(0, 0, getWidth(), getHeight());
+            g2.dispose();
+
+            super.paintComponent(g);
+        }
+
+        private void MouseEntered(java.awt.event.MouseEvent evt)
+        {
+      		setBackground(Color.red);
+    	}
+
+    /*private void jButton2MouseExited(java.awt.event.MouseEvent evt) {
+       this.jButton2.setBackground(Color.lightGray);
+       this.Button.setForeground(Color.lightGray);
+    }  */
 }

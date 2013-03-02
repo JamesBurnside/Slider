@@ -29,11 +29,10 @@ public class Slider
 		frame.setSize(1000,1000);
 
 		Container contentPane = frame.getContentPane();
+		contentPane.setBackground(Color.BLACK);
 		contentPane.setLayout(new BorderLayout());
 
 		JPanel display_panel =  new JPanel();
-		display_panel.setPreferredSize(new Dimension(1000,900));
-		display_panel.setLayout(new BorderLayout());
 
 		Topmenu menuBar = new Topmenu();
 
@@ -45,8 +44,8 @@ public class Slider
 
 
 		display_panel = loadImage("blah.jpg", panels);
+		contentPane.add(display_panel, BorderLayout.CENTER);
 		contentPane.add(menuBar, BorderLayout.NORTH);
-		contentPane.add(display_panel, BorderLayout.SOUTH);
 
 		frame.setVisible(true);
 	}
@@ -54,6 +53,7 @@ public class Slider
 	public JPanel loadImage(String filename, JPanel[][] panels)
 	{
 		JPanel display_panel = new JPanel();
+		display_panel.setBackground(Color.BLACK);
 		display_panel.setPreferredSize(new Dimension(900,900));
 
 		BufferedImage fullimg = null;
@@ -69,8 +69,8 @@ public class Slider
 		BufferedImage[][] chops = new BufferedImage[rows][cols];
 		JLabel chopLabel[][] = new JLabel[rows][cols];
 
-		int chopwidth = 900/rows;
-		int chopheight = 900/cols;
+		int chopwidth = 400/rows;
+		int chopheight = 400/cols;
 
 		for (int c=0; c<cols; c++)
 			for(int r=0; r<rows; r++)
@@ -89,8 +89,12 @@ public class Slider
                 panels[r][c] = new JPanel();
                 panels[r][c].setPreferredSize(new Dimension(chopwidth, chopheight));
                 panels[r][c].add(chopLabel[r][c]);
-                display_panel.add(panels[r][c], BorderLayout.SOUTH);
 			}
+
+			//put panels onto display panel in (order to start)
+			for (int c=0; c<cols; c++)
+				for(int r=0; r<rows; r++)
+					display_panel.add(panels[c][r], BorderLayout.CENTER);
 
 		return display_panel;
 	}
