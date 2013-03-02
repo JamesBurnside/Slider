@@ -15,10 +15,35 @@ class Topmenu extends JMenuBar
 		JGradientButton btnCompleted = new JGradientButton("View Completed");
 		JGradientButton btnExit = new JGradientButton("Exit");
 
+		btnExit = setBtnExitClick(btnExit);
+
 		this.add(btnNew);
 		this.add(btnShuffle);
 		this.add(btnCompleted);
 		this.add(btnExit);
+	}
+
+	@Override
+    protected void paintComponent(Graphics g)
+	{
+		Graphics2D g2 = (Graphics2D)g;
+		g2.setBackground(new Color(0x111111));
+		g2.fillRect(0, 0, getWidth(), getHeight());
+	}
+
+
+
+	JGradientButton setBtnExitClick(JGradientButton btnExit)
+	{
+		btnExit.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				System.exit(0);
+			}
+		});
+
+		return btnExit;
 	}
 }
 

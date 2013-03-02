@@ -15,6 +15,7 @@ public class Slider
 	int cols, rows;
 	Image buffer;
 	Graphics2D g2d;
+	int pictureDimension;
 
 	public static void main(String args[])
 	{
@@ -27,6 +28,7 @@ public class Slider
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.setSize(1000,1000);
+		pictureDimension = 900;
 
 		Container contentPane = frame.getContentPane();
 		contentPane.setBackground(Color.BLACK);
@@ -44,7 +46,7 @@ public class Slider
 
 
 		display_panel = loadImage("blah.jpg", panels);
-		contentPane.add(display_panel, BorderLayout.CENTER);
+		contentPane.add(display_panel, BorderLayout.SOUTH);
 		contentPane.add(menuBar, BorderLayout.NORTH);
 
 		frame.setVisible(true);
@@ -52,9 +54,11 @@ public class Slider
 
 	public JPanel loadImage(String filename, JPanel[][] panels)
 	{
+		GridLayout gridLayout = new GridLayout(3,3);
 		JPanel display_panel = new JPanel();
-		display_panel.setBackground(Color.BLACK);
-		display_panel.setPreferredSize(new Dimension(900,900));
+		display_panel.setBackground(new Color(0x333333));
+		display_panel.setPreferredSize(new Dimension(pictureDimension,pictureDimension));
+		display_panel.setLayout(gridLayout);
 
 		BufferedImage fullimg = null;
 		try
@@ -69,8 +73,8 @@ public class Slider
 		BufferedImage[][] chops = new BufferedImage[rows][cols];
 		JLabel chopLabel[][] = new JLabel[rows][cols];
 
-		int chopwidth = 400/rows;
-		int chopheight = 400/cols;
+		int chopwidth = pictureDimension/rows;
+		int chopheight = pictureDimension/cols;
 
 		for (int c=0; c<cols; c++)
 			for(int r=0; r<rows; r++)
@@ -87,14 +91,15 @@ public class Slider
 
                 chopLabel[r][c] = new JLabel(new ImageIcon(chops[r][c]));
                 panels[r][c] = new JPanel();
+                panels[r][c].setBackground(new Color(0x333333));
                 panels[r][c].setPreferredSize(new Dimension(chopwidth, chopheight));
                 panels[r][c].add(chopLabel[r][c]);
 			}
 
-			//put panels onto display panel in (order to start)
-			for (int c=0; c<cols; c++)
-				for(int r=0; r<rows; r++)
-					display_panel.add(panels[c][r], BorderLayout.CENTER);
+		//put panels onto display panel in (order to start)
+		for (int c=0; c<cols; c++)
+			for(int r=0; r<rows; r++)
+				display_panel.add(panels[c][r], BorderLayout.CENTER);
 
 		return display_panel;
 	}
