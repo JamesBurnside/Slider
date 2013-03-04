@@ -43,6 +43,7 @@ public class Slider
 		Topmenu menuBar = new Topmenu();
 		menuBar.btnNew = setBtnNewClick(menuBar.btnNew);
 		menuBar.btnInc = setBtnIncClick(menuBar.btnInc);
+		menuBar.btnDec = setBtnDecClick(menuBar.btnDec);
 
 		//Have a start screen that asks for difficulty level
 		//or set default
@@ -59,10 +60,7 @@ public class Slider
 
 	void resetImage()
 	{
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
-		frame.setSize(1000,1000);
-		pictureDimension = 900;
+		frame.getContentPane().removeAll();
 
 		contentPane = frame.getContentPane();
 		contentPane.setBackground(Color.BLACK);
@@ -73,6 +71,7 @@ public class Slider
 		Topmenu menuBar = new Topmenu();
 		menuBar.btnNew = setBtnNewClick(menuBar.btnNew);
 		menuBar.btnInc = setBtnIncClick(menuBar.btnInc);
+		menuBar.btnDec = setBtnDecClick(menuBar.btnDec);
 
 		//for now set a default of 3x3
 		panels = new JPanel[rows][cols];
@@ -141,6 +140,13 @@ public class Slider
 
 
 
+
+
+
+
+
+
+
 	//BUTTON EVENTS
 	JGradientButton setBtnNewClick(JGradientButton btnNew)
 	{
@@ -178,9 +184,30 @@ public class Slider
 				rows++;
 				cols++;
 				resetImage();
+				//apply shuffle
 			}
 		});
 
 		return btnInc;
+	}
+
+	JGradientButton setBtnDecClick(JGradientButton btnDec)
+	{
+		btnDec.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if(rows > 3 && cols > 3)
+				{
+					rows--;
+					cols--;
+					resetImage();
+					//apply shuffle
+				}
+
+			}
+		});
+
+		return btnDec;
 	}
 }

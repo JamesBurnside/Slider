@@ -31,7 +31,6 @@ class Topmenu extends JMenuBar
 		btnExit = new JGradientButton("Exit");
 
 		btnExit = setBtnExitClick(btnExit);
-		//btnNew = setBtnNewClick(btnNew);
 
 		this.add(btnNew);
 		this.add(btnShuffle);
