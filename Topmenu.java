@@ -11,23 +11,32 @@ import java.io.File;
 class Topmenu extends JMenuBar
 {
 	JFrame bossFrame;
+	JGradientButton btnNew;
+	JGradientButton btnShuffle;
+	JGradientButton btnInc;
+	JGradientButton btnDec;
+	JGradientButton btnCompleted;
+	JGradientButton btnExit;
 
-	public Topmenu(JFrame passedFrame)
+	public Topmenu()
 	{
-		bossFrame = passedFrame;
 
 		this.setLayout(new FlowLayout());
 
-		JGradientButton btnNew = new JGradientButton("Load New Image");
-		JGradientButton btnShuffle = new JGradientButton("Re-Shuffle");
-		JGradientButton btnCompleted = new JGradientButton("View Completed");
-		JGradientButton btnExit = new JGradientButton("Exit");
+		btnNew = new JGradientButton("Load New Image");
+		btnShuffle = new JGradientButton("Re-Shuffle");
+		btnInc = new JGradientButton("Increase Size");
+		btnDec = new JGradientButton("Decrease Size");
+		btnCompleted = new JGradientButton("View Completed");
+		btnExit = new JGradientButton("Exit");
 
 		btnExit = setBtnExitClick(btnExit);
-		btnNew = setBtnNewClick(btnNew);
+		//btnNew = setBtnNewClick(btnNew);
 
 		this.add(btnNew);
 		this.add(btnShuffle);
+		this.add(btnInc);
+		this.add(btnDec);
 		this.add(btnCompleted);
 		this.add(btnExit);
 	}
@@ -55,6 +64,7 @@ class Topmenu extends JMenuBar
 		return btnExit;
 	}
 
+	/*
 	JGradientButton setBtnNewClick(JGradientButton btnNew)
 	{
 		btnNew.addActionListener(new ActionListener()
@@ -72,13 +82,15 @@ class Topmenu extends JMenuBar
 				int returnVal = chooser.showOpenDialog(bossFrame);
 				if(returnVal == JFileChooser.APPROVE_OPTION)
 				{
-				    bossFrame.imagePath = chooser.getSelectedFile().getName();
+				    //chooser.getSelectedFile().getName();
     			}
 			}
 		});
 
 		return btnNew;
 	}
+	*/
+
 }
 
 class JGradientButton extends JButton
