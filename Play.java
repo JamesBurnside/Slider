@@ -44,7 +44,7 @@ public class Play
 		frame = new JFrame("Slider");
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.setSize(930,1000);
-		frame.setResizable( false );
+		frame.setResizable(false);
 		pictureDimension = 900;
 
 		//Content pane set-up
@@ -86,13 +86,13 @@ public class Play
 
 		choice2 = JOptionPane.showOptionDialog(
 			frame,
-		    "Would you like to choose your own image?",
+		    "Would you like to choose your own image?"+'\n'+"Images will be resized to 900x900px",
 		    "Choose Image",
 		    JOptionPane.YES_NO_OPTION,
 		    JOptionPane.QUESTION_MESSAGE,
 		    null,
 		    options2,
-		    options2[0]);
+		    options2[1]);
 
 		if(choice2 == 0)
 		{
@@ -181,6 +181,7 @@ public class Play
 		try
 		{
     		fullimg = ImageIO.read(new File(imagePath));
+    		fullimg = resizeImage(fullimg, BufferedImage.TYPE_INT_ARGB);
 		}
 		catch (IOException e) {}
 
@@ -263,6 +264,7 @@ public class Play
 		try
 		{
     		fullimg = ImageIO.read(new File(imagePath));
+    		fullimg = resizeImage(fullimg, BufferedImage.TYPE_INT_ARGB);
 		}
 		catch (IOException e) {}
 
@@ -521,6 +523,24 @@ public class Play
 
     return panel;
 	}
+
+	private static BufferedImage resizeImage(BufferedImage originalImage, int type)
+	{
+		BufferedImage resizedImage = new BufferedImage(900, 900, type);
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(originalImage, 0, 0, 900, 900, null);
+		g.dispose();
+		g.setComposite(AlphaComposite.Src);
+
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+		RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING,
+		RenderingHints.VALUE_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		RenderingHints.VALUE_ANTIALIAS_ON);
+
+		return resizedImage;
+    }
 
 
 }
