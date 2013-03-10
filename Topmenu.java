@@ -10,7 +10,6 @@ import java.io.File;
 
 class Topmenu extends JMenuBar
 {
-	JFrame bossFrame;
 	JGradientButton btnNew;
 	JGradientButton btnShuffle;
 	JGradientButton btnInc;
@@ -25,8 +24,8 @@ class Topmenu extends JMenuBar
 
 		btnNew = new JGradientButton("Load New Image");
 		btnShuffle = new JGradientButton("Re-Shuffle");
-		btnInc = new JGradientButton("Increase Size");
-		btnDec = new JGradientButton("Decrease Size");
+		btnInc = new JGradientButton("Increase Difficulty");
+		btnDec = new JGradientButton("Decrease Difficulty");
 		btnCompleted = new JGradientButton("View Completed");
 		btnExit = new JGradientButton("Exit");
 
@@ -63,32 +62,6 @@ class Topmenu extends JMenuBar
 		return btnExit;
 	}
 
-	/*
-	JGradientButton setBtnNewClick(JGradientButton btnNew)
-	{
-		btnNew.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				JFileChooser chooser = new JFileChooser();
-
-				JFileFilter filter = new JFileFilter();
-				filter.addType("jpg");
-				filter.addType("JPG");
-				filter.setDescription("JPG Images");
-				chooser.setFileFilter(filter);
-
-				int returnVal = chooser.showOpenDialog(bossFrame);
-				if(returnVal == JFileChooser.APPROVE_OPTION)
-				{
-				    //chooser.getSelectedFile().getName();
-    			}
-			}
-		});
-
-		return btnNew;
-	}
-	*/
 
 }
 
